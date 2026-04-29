@@ -33,7 +33,7 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const gateway = urlParams.get('gateway');
-        const orderId = urlParams.get('orderId');
+        const orderId = urlParams.get('orderId') || urlParams.get('orderCode') || 'Không xác định';
 
         document.getElementById('details').innerHTML = `
             <p style="margin-bottom: 10px;"><strong>Cổng thanh toán:</strong> ${gateway?.toUpperCase()}</p>
