@@ -34,6 +34,17 @@ Dự án này cung cấp một bộ khung để tích hợp nhanh chóng bộ ba
 
 ---
 
+## 🎯 Đối Tượng Sử Dụng
+
+Dự án này được thiết kế tối ưu cho các nhu cầu sau:
+
+1.  **Sinh viên & Học viên:** Cần demo tính năng thanh toán cho **đồ án môn học**, **đồ án tốt nghiệp** hoặc các dự án thực tế trong quá trình học tập.
+2.  **Developer (Beginner/Junior):** Muốn tìm hiểu luồng tích hợp cổng thanh toán thực tế (Request -> Redirect -> Webhook/Callback -> Verify Signature).
+3.  **Startup/Product Owner:** Cần một bản **PoC (Proof of Concept)** hoặc demo tính năng thanh toán cho khách hàng/nhà đầu tư trước khi triển khai chính thức.
+4.  **Freelancer:** Sử dụng làm bộ source mẫu để triển khai nhanh tính năng thanh toán cho các sản phẩm vừa và nhỏ.
+
+---
+
 ## 📸 Giao Diện Demo
 
 ![SecurePay Demo Screenshot](wwwroot/assets/screenshot.png)
