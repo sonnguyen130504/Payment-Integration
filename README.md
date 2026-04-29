@@ -9,18 +9,11 @@
   </div>
 </div>
 
-<details>
-  <summary><b>🚦 Click để xem ý nghĩa các trạng thái tích hợp (Integration Status)</b></summary>
-  
-  <br>
-
 |    Status    |                                    Indicator                                     | Ý nghĩa kỹ thuật                                                                             | Khuyến nghị môi trường  |
 | :----------: | :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------- | :---------------------- |
 | **Healthy**  | <img src="wwwroot/assets/img/icons/status-active.svg" width="18" height="18" />  | **Xanh lá:** SDK/API đang hoạt động ổn định và tương thích hoàn toàn với mã nguồn hiện tại.  | ✅ **Production Ready** |
 | **Warning**  | <img src="wwwroot/assets/img/icons/status-warning.svg" width="18" height="18" /> | **Vàng:** Đang gặp vấn đề nhỏ (ví dụ: API chậm, SDK sắp bị khai tử, cần update version mới). | ⚠️ Cần theo dõi thêm    |
 | **Critical** |  <img src="wwwroot/assets/img/icons/status-error.svg" width="18" height="18" />  | **Đỏ:** API bị lỗi nghiêm trọng, ngừng hỗ trợ hoặc cấu trúc đã bị thay đổi phá vỡ.           | ❌ Không nên sử dụng    |
-
-</details>
 
 ---
 
