@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>🛡️ .NET Payment Integration Demo</h1>
+  <h1>💳 .NET Payment Integration Demo</h1>
   <p><b>Giải pháp tích hợp thanh toán đa nền tảng (VNPay, SePay, PayOS) cho .NET 10</b></p>
   
   <div style="display: flex; gap: 15px; justify-content: center; margin-bottom: 20px; align-items: center;">
