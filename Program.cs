@@ -17,33 +17,34 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddHttpContextAccessor();
 
-// Configure Payment Settings
-builder.Services.Configure<VnpaySettings>(builder.Configuration.GetSection("PaymentSettings:Vnpay"));
-builder.Services.Configure<SepaySettings>(builder.Configuration.GetSection("PaymentSettings:Sepay"));
-builder.Services.Configure<PayosSettings>(builder.Configuration.GetSection("PaymentSettings:Payos"));
+// Configure Payment Settings (TicketFlow Style)
+builder.Services.Configure<VnpaySettings>(builder.Configuration.GetSection(VnpaySettings.SectionName));
+builder.Services.Configure<SepaySettings>(builder.Configuration.GetSection(SepaySettings.SectionName));
+builder.Services.Configure<PayosSettings>(builder.Configuration.GetSection(PayosSettings.SectionName));
 
-// Register VNPAY.NET SDK
+// Register VNPAY.NET SDK (TicketFlow Style)
 builder.Services.AddVnpayClient(config =>
 {
-    var vnpaySection = builder.Configuration.GetSection("PaymentSettings:Vnpay");
+    var vnpaySection = builder.Configuration.GetSection(VnpaySettings.SectionName);
     config.TmnCode = vnpaySection["TmnCode"]!;
     config.HashSecret = vnpaySection["HashSecret"]!;
     config.CallbackUrl = vnpaySection["CallbackUrl"]!;
     config.BaseUrl = vnpaySection["BaseUrl"]!;
     config.Version = vnpaySection["Version"] ?? "2.1.0";
+    config.OrderType = vnpaySection["OrderType"] ?? "other";
 });
 
-// Register Payment Services (TicketFlow Style)
+// Register Payment Services
 builder.Services.AddScoped<IPaymentService, VnpayService>();
 builder.Services.AddScoped<IPaymentService, SepayService>();
 builder.Services.AddScoped<IPaymentService, PayosService>();
 
-// Also register concrete types for direct injection in controller
+// Concrete registrations
 builder.Services.AddScoped<VnpayService>();
 builder.Services.AddScoped<SepayService>();
 builder.Services.AddScoped<PayosService>();
 
-// Enable CORS for UI
+// Enable CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -54,7 +55,6 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 app.UseMiddleware<ExceptionMiddleware>();
 
 if (app.Environment.IsDevelopment())
