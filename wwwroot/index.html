@@ -49,23 +49,29 @@
                         <div class="method-wrapper">
                             <button class="method-btn vnpay" onclick="payWithVnpay(this)">
                                 <img src="assets/img/icons/vnpay.svg" alt="VNPay">
-                                <span>Thanh toán qua VNPay</span>
+                                <div class="method-content">
+                                    <span class="method-title">Thanh toán qua VNPay</span>
+                                    <span class="method-note">Hỗ trợ Sandbox (Có thẻ test giả lập)</span>
+                                </div>
                             </button>
-                            <div class="method-note">💡 Hỗ trợ Sandbox Test (Có thẻ test giả lập)</div>
                         </div>
                         <div class="method-wrapper">
                             <button class="method-btn sepay" onclick="payWithSepay(this)">
                                 <img src="assets/img/icons/sepay.svg" alt="SePay">
-                                <span>Thanh toán qua SePay</span>
+                                <div class="method-content">
+                                    <span class="method-title">Thanh toán qua SePay</span>
+                                    <span class="method-note">Hỗ trợ mô phỏng thanh toán (Simulate)</span>
+                                </div>
                             </button>
-                            <div class="method-note">💡 Hỗ trợ mô phỏng thanh toán (Simulate Payment)</div>
                         </div>
                         <div class="method-wrapper">
                             <button class="method-btn payos" onclick="payWithPayos(this)">
-                                <img src="assets/img/icons/payos.svg    " alt="PayOS">
-                                <span>Thanh toán qua PayOS</span>
+                                <img src="assets/img/icons/payos.svg" alt="PayOS">
+                                <div class="method-content">
+                                    <span class="method-title">Thanh toán qua PayOS</span>
+                                    <span class="method-note">Không có Sandbox (Yêu cầu tiền thật)</span>
+                                </div>
                             </button>
-                            <div class="method-note">⚠️ Không có Sandbox (Yêu cầu thanh toán tiền thật để test)</div>
                         </div>
                     </div>
                 </div>
@@ -113,12 +119,12 @@
             });
 
             if (isLoading && btn) {
-                const span = btn.querySelector('span');
-                btn.dataset.originalText = span.innerText;
-                span.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Đang xử lý...';
+                const title = btn.querySelector('.method-title');
+                btn.dataset.originalText = title.innerText;
+                title.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Đang xử lý...';
             } else if (!isLoading && btn && btn.dataset.originalText) {
-                const span = btn.querySelector('span');
-                span.innerText = btn.dataset.originalText;
+                const title = btn.querySelector('.method-title');
+                title.innerText = btn.dataset.originalText;
             }
         }
 

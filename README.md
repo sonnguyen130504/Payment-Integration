@@ -34,6 +34,12 @@ Dự án này cung cấp một bộ khung để tích hợp nhanh chóng bộ ba
 
 ---
 
+## 📸 Giao Diện Demo
+
+![SecurePay Demo Screenshot](wwwroot/assets/screenshot.png)
+
+---
+
 ## 🏗 Kiến Trúc & Bảo Mật
 
 1. **Giao diện thống nhất (`IPaymentService`)**
