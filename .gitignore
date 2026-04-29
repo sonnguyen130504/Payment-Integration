@@ -1,0 +1,20 @@
+# .NET Core
+[Bb]in/
+[Oo]bj/
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio
+.vs/
+.idea/
+.vscode/
+
+# Sensitive Files
+appsettings.json
+appsettings.*.json
+.env
+.env.*
+
+# Exception for examples
+!appsettings.example.json

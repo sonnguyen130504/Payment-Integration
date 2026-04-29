@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Integration Demo - VNPay, SePay & PayOS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-shield-halved"></i>
+                <span>SecurePay Demo</span>
+            </div>
+            <h1>Hướng Dẫn Tích Hợp Thanh Toán</h1>
+            <p>Demo tích hợp cổng thanh toán VNPay, SePay và PayOS cho ứng dụng .NET</p>
+        </header>
+
+        <main>
+            <div class="payment-card">
+                <div class="order-summary">
+                    <h3>Thông Tin Đơn Hàng</h3>
+                    <div class="form-group">
+                        <label for="orderId">Mã Đơn Hàng</label>
+                        <input type="text" id="orderId" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Số Tiền (VND)</label>
+                        <input type="number" id="amount" value="10000">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Nội Dung Thanh Toán</label>
+                        <textarea id="description">Thanh toan don hang demo</textarea>
+                    </div>
+                </div>
+
+                <div class="payment-methods">
+                    <h3>Chọn Phương Thức Thanh Toán</h3>
+                    <div class="methods-grid">
+                        <button class="method-btn vnpay" onclick="payWithVnpay()">
+                            <img src="assets/img/icons/vnpay.svg" alt="VNPay">
+                            <span>Thanh toán qua VNPay</span>
+                        </button>
+                        <button class="method-btn sepay" onclick="payWithSepay()">
+                            <img src="assets/img/icons/sepay.svg" alt="SePay">
+                            <span>Thanh toán qua SePay</span>
+                        </button>
+                        <button class="method-btn payos" onclick="payWithPayos()">
+                            <img src="https://payos.vn/wp-content/uploads/2023/08/payos_logo.png" alt="PayOS">
+                            <span>Thanh toán qua PayOS</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-card">
+                    <i class="fas fa-code"></i>
+                    <h4>API Ready</h4>
+                    <p>Hệ thống backend .NET đã sẵn sàng với các endpoint RESTful.</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-bolt"></i>
+                    <h4>Fast Integration</h4>
+                    <p>Sử dụng các service được tối ưu hóa để tích hợp nhanh chóng.</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-lock"></i>
+                    <h4>Secure</h4>
+                    <p>Mã hóa HmacSHA512 (VNPay) và HMACSHA256 (SePay) chuẩn bảo mật.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Payment Integration Demo Project. Built for Educational Purposes.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Generate random order ID
+        document.getElementById('orderId').value = 'PAY' + Date.now();
+
+        async function payWithVnpay() {
+            const amount = document.getElementById('amount').value;
+            const orderId = document.getElementById('orderId').value;
+            const description = document.getElementById('description').value;
+
+            try {
+                const response = await fetch('/api/payment/vnpay', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount, orderId, description })
+                });
+                const data = await response.json();
+                if (data.url) {
+                    window.location.href = data.url;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Có lỗi xảy ra khi gọi API VNPay');
+            }
+        }
+
+        async function payWithSepay() {
+            const amount = document.getElementById('amount').value;
+            const orderId = document.getElementById('orderId').value;
+            const description = document.getElementById('description').value;
+
+            try {
+                const response = await fetch('/api/payment/sepay', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount, orderId, description })
+                });
+                
+                const html = await response.text();
+                
+                // Create a temporary container to render and submit the form from SePay
+                const div = document.createElement('div');
+                div.innerHTML = html;
+                document.body.appendChild(div);
+                // The HTML returned by SePay should have an auto-submit script
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Có lỗi xảy ra khi gọi API SePay');
+            }
+        }
+
+        async function payWithPayos() {
+            const amount = document.getElementById('amount').value;
+            const orderId = document.getElementById('orderId').value;
+            const description = document.getElementById('description').value;
+
+            try {
+                const response = await fetch('/api/payment/payos', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount, orderId: Date.now().toString(), description })
+                });
+                const data = await response.json();
+                if (data.url) {
+                    window.location.href = data.url;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Có lỗi xảy ra khi gọi API PayOS');
+            }
+        }
+    </script>
+</body>
+</html>
